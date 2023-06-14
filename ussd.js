@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Alcatel MW40 MIFI USSD Enhancement Userscript
+// @namespace    https://github.com/pkemoscar
+// @version      1.0
+// @description  Enables clicking of USSD menu options
+// @author       Oscar Koech
+// @match        http://telenormi-fi.home/*
+// @match        http://192.168.1.1/*
+// @grant        none
+// ==/UserScript==
+
 (function ($) {
   //enable ussd
   window.config.MoreItemList.Ussd.isActive = true;
