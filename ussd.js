@@ -54,7 +54,7 @@
     //do the conversion if there is response (buttons and text)
     if (response.length > 0) {
       $screen.text(""); //clear screen
-      let regex = /^([\*#0-9]+)(?:\.|\:)(.+)/;
+      let regex = /^([*#0-9]+)[:.]{1}(.+)/;
       response.split("\n").forEach((item) => {
         let matches = item.match(regex);
         if (matches) {
@@ -79,7 +79,7 @@
     let codes = getPreviousCodes();
     codes.forEach(function (code) {
       $screen.append(
-        `<button class="initial-ussd-selection" data-selection="*${code}#">*${code}#</button>`
+        `<button class="initial-ussd-selection" data-selection="${code}">${code}</button>`
       );
     });
   };
@@ -92,11 +92,9 @@
     //if initial input, save it to storage so we can use it to populate initial menu later
     if ($button.val() == "Send") {
       let input = $("#ussdIpt").val().trim();
-      let matches = input.match(/^\*([0-9]+)#$/);
-      if (matches) {
-        let cCode = matches[1];
-        let codes = getPreviousCodes().filter((code) => code !== cCode);
-        codes.unshift(cCode); //add the current code to the beginning of code history
+      if (/^\*[0-9]+#$/.test(input)) {
+        let codes = getPreviousCodes().filter((code) => code !== input);
+        codes.unshift(input); //add the current code to the beginning of code history
         window.localStorage.setItem("previous", codes.join(","));
       }
     }
